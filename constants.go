@@ -105,7 +105,19 @@ const (
 	OptionRenewalTimeValue       OptionCode = 58
 	OptionRebindingTimeValue     OptionCode = 59
 	OptionVendorClassIdentifier  OptionCode = 60
-	OptionClientIdentifier       OptionCode = 61
+	// proper format is 7 bytes
+	// first byte is 0x01 for "Ethernet"
+	// next six bytes are the MAC address - in normal byte order
+	// Example:
+	// Client ID is MAC 00:a5:09:00:00:bf (A WigWag IEEE MAC address)
+	// in hex for this option:
+	// 3d 07 01 00 a5 09 00 00 bf
+	// 37 (61)
+	// 07 (option length is 7 bytes)
+	// 01 This is an Ethernet MAC
+	// 00:a5:09:00:00:bf is the MAC address
+	OptionClientIdentifier   OptionCode = 61
+	ClientIdentifierEthernet byte       = 0x01
 
 	OptionTFTPServerName OptionCode = 66
 	OptionBootFileName   OptionCode = 67

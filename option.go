@@ -38,3 +38,13 @@ func (o Options) SelectOrder(order []byte) []Option {
 
 type OpCode byte
 type MessageType byte // Option 53
+
+// MakeClientIdentifier is for use with Option 61 OptionClientIdentifier
+func MakeClientIdentifier(clientType byte, addr []byte) (ret []byte) {
+	// typically the MAC is 6 bytes, so 7 would be the max. But it could be 9 if using 802.15.4 or some
+	// future protocol with a 64-bit MAC
+	ret = make([]byte, 0, 9)
+	ret = append(ret, clientType)
+	ret = append(ret, addr...)
+	return
+}
